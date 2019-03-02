@@ -7,8 +7,8 @@ module.exports = {
     // port: 3030, // default: 3000
     // host: '0.0.0.0', // default: localhost
     https: {
-        key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-        cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
     }
   },
   mode: 'universal',
@@ -43,8 +43,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/laravel-echo', ssr:false},
-    { src: '~/plugins/axios'}
+    { src: '~/plugins/laravel-echo', ssr: false },
+    { src: '~/plugins/axios' }
   ],
 
   /*
@@ -54,7 +54,7 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt',
+    'bootstrap-vue/nuxt'
   ],
   /*
   ** Axios module configuration
@@ -70,8 +70,16 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
-      
+    extend (config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
     }
   }
 }

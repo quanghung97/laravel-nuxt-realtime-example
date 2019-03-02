@@ -1,5 +1,5 @@
 export default {
-    getMessage(state) {
-        return state.message
-    }
+  getMessage(state) {
+    return state.message
+  }
 }
